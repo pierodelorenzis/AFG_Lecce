@@ -1,0 +1,3619 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "AretusaWeb",
+    "description": "Il committente Biblioteca Aretusa ha chiesto lo sviluppo di un’applicazione web per la gestione di un archivio bibliotecario.",
+    "version": "1.0.11"
+  },
+  "externalDocs": {
+    "description": "Find out more about Aretusa",
+    "url": "https://docs.google.com/document/d/1bdq3cXRu_OfUj67lvM8UBmIejfyVj9wxTG2uUbuhL9o/edit"
+  },
+  "servers": [
+    {
+      "url": "server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "aisle",
+      "description": "Everything about aisle"
+    },
+    {
+      "name": "author",
+      "description": "Everything about authors"
+    },
+    {
+      "name": "book",
+      "description": "Everything about books"
+    },
+    {
+      "name": "bookcase",
+      "description": "Everything about bookcases"
+    },
+    {
+      "name": "borrow",
+      "description": "Everything about boorrows"
+    },
+    {
+      "name": "collection",
+      "description": "Everything about collections"
+    },
+    {
+      "name": "customer",
+      "description": "Everything about customers"
+    },
+    {
+      "name": "editor",
+      "description": "Everything about editors"
+    },
+    {
+      "name": "feedback",
+      "description": "Everything about feedbacks"
+    },
+    {
+      "name": "genre",
+      "description": "Everything about genres"
+    },
+    {
+      "name": "user",
+      "description": "Everything about users"
+    }
+  ],
+  "paths": {
+    "/aisle": {
+      "get": {
+        "tags": [
+          "aisle"
+        ],
+        "summary": "Find aisles",
+        "operationId": "findAisle",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id of aisle to return",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Name of aisle to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "aisle"
+        ],
+        "summary": "Add a new aisle",
+        "description": "Add a new aisle to the library",
+        "operationId": "addAisle",
+        "requestBody": {
+          "description": "Create a new aisle in the library",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Aisle"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Aisle"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Aisle"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/aisle/{idAisle}": {
+      "delete": {
+        "tags": [
+          "aisle"
+        ],
+        "summary": "Delete aisle by Id",
+        "description": "Delete aisle by Id",
+        "operationId": "deleteByIdAisle",
+        "parameters": [
+          {
+            "name": "idAisle",
+            "in": "path",
+            "description": "ID of aisle to delete",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Invalid user value"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "aisle"
+        ],
+        "summary": "Edit aisle",
+        "description": "Edit an existing aisle by Id",
+        "operationId": "editAisle",
+        "parameters": [
+          {
+            "name": "idAisle",
+            "in": "path",
+            "description": "ID of aisle that needs to be edited",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Update an existing aisle in the library",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Aisle"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Aisle"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Aisle"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/aisle/{name}": {
+      "delete": {
+        "tags": [
+          "aisle"
+        ],
+        "summary": "Delete aisle by Name",
+        "description": "Delete aisle by Name",
+        "operationId": "deleteByName",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "Name of aisle to delete",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Invalid user value"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "aisle"
+        ],
+        "summary": "Edit aisle",
+        "description": "Edit an existing aisle by Name",
+        "operationId": "editByName",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "Name of aisle that needs to be edited",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Update an existing aisle in the library",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Aisle"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Aisle"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Aisle"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/author": {
+      "get": {
+        "tags": [
+          "author"
+        ],
+        "summary": "Find authors",
+        "operationId": "findAuthor",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "ID of author to return",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Name of author to return",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lastname",
+            "in": "query",
+            "description": "Name of author to return",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "author"
+        ],
+        "summary": "Add a new author",
+        "description": "Add a new author to the library",
+        "operationId": "addAuthor",
+        "requestBody": {
+          "description": "Create a new aauthor in the library",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Author"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Author"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Author"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/author/{idAuthor}": {
+      "delete": {
+        "tags": [
+          "author"
+        ],
+        "summary": "Delete author by Id",
+        "description": "Delete author by Id",
+        "operationId": "deleteByIdAuthor",
+        "parameters": [
+          {
+            "name": "idAuthor",
+            "in": "path",
+            "description": "ID of author to delete",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Invalid user value"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "author"
+        ],
+        "summary": "Edit author",
+        "description": "Edit an existing author by Id",
+        "operationId": "editAuthor",
+        "parameters": [
+          {
+            "name": "idAuthor",
+            "in": "path",
+            "description": "ID of author that needs to be edited",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Update an existing author in the library",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Author"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Author"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Author"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/book": {
+      "get": {
+        "tags": [
+          "book"
+        ],
+        "summary": "Find book",
+        "operationId": "findBook",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "ID of book to return",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "isbn",
+            "in": "query",
+            "description": "isbn of book to return",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "name of book to return",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "description": "year of book to return",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "pegi",
+            "in": "query",
+            "description": "pegi of book to return",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "description": "language of book to return",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "book"
+        ],
+        "summary": "Add a new book to the library",
+        "description": "Add a new book to the library",
+        "operationId": "addBook",
+        "requestBody": {
+          "description": "Add a new book to the library",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Book"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Book"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Book"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/book/{idBook}": {
+      "delete": {
+        "tags": [
+          "book"
+        ],
+        "summary": "Deletes a book",
+        "description": "delete a book",
+        "operationId": "deleteBook",
+        "parameters": [
+          {
+            "name": "idBook",
+            "in": "path",
+            "description": "Book id to delete",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Invalid user value"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "book"
+        ],
+        "summary": "Edit book",
+        "description": "Edit an existing book by Id",
+        "operationId": "editBook",
+        "parameters": [
+          {
+            "name": "idBook",
+            "in": "path",
+            "description": "Id of book that need to be edited",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Update an existing book in the library",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Book"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Book"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Book"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/bookcase": {
+      "get": {
+        "tags": [
+          "bookcase"
+        ],
+        "summary": "Find bookcase",
+        "operationId": "findBookcase",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "ID of book to return",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "number",
+            "in": "query",
+            "description": "Number of book to return",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "bookcase"
+        ],
+        "summary": "Add a new bookcase to the library",
+        "description": "Add a new bookcase to the library",
+        "operationId": "addBookcase",
+        "requestBody": {
+          "description": "Add a new bookcase to the library",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Bookcase"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Bookcase"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Bookcase"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/bookcase/{idBookcase}": {
+      "delete": {
+        "tags": [
+          "bookcase"
+        ],
+        "summary": "Delete a bookcase by Id",
+        "description": "Delete a bookcase by Id",
+        "operationId": "deleteBookcaseById",
+        "parameters": [
+          {
+            "name": "idBookcase",
+            "in": "path",
+            "description": "ID of book to remove",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Invalid user value"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "bookcase"
+        ],
+        "summary": "Edit a bookcase by Id",
+        "description": "Edit a bookcase by Id",
+        "operationId": "editBookcaseById",
+        "parameters": [
+          {
+            "name": "idBookcase",
+            "in": "path",
+            "description": "ID of book to edit",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/borrow": {
+      "get": {
+        "tags": [
+          "borrow"
+        ],
+        "summary": "find borrow",
+        "operationId": "findBorrow",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Borrow id to return",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "startDate of borrow to return",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "endDate of borrow to return",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "borrow"
+        ],
+        "summary": "creates a new borrow",
+        "description": "",
+        "operationId": "newBorrow",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/borrow/{idBorrow}": {
+      "delete": {
+        "tags": [
+          "borrow"
+        ],
+        "summary": "Deletes a borrow",
+        "description": "delete a borrow",
+        "operationId": "deleteBorrow",
+        "parameters": [
+          {
+            "name": "idBorrow",
+            "in": "path",
+            "description": "Borrow id to delete",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Invalid user value"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "borrow"
+        ],
+        "summary": "Edit borrow",
+        "description": "Edit an existing borrow by Id",
+        "operationId": "editBorrow",
+        "parameters": [
+          {
+            "name": "idBorrow",
+            "in": "path",
+            "description": "ID of the borrow that needs to be edited",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Edit an existing borrow",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Borrow"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Borrow"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Borrow"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/collection": {
+      "get": {
+        "tags": [
+          "collection"
+        ],
+        "summary": "find collection",
+        "operationId": "findCollection",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Collection id to return",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "name of collection to return",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startYear",
+            "in": "query",
+            "description": "startYear of collection to return",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "endYear",
+            "in": "query",
+            "description": "endYear of collection to return",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "numBooks",
+            "in": "query",
+            "description": "numBooks of collection to return",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "collection"
+        ],
+        "summary": "creates a new collection",
+        "description": "",
+        "operationId": "newCollection",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/collection/{idCollection}": {
+      "delete": {
+        "tags": [
+          "collection"
+        ],
+        "summary": "Deletes a collection by id",
+        "description": "deletes a collection by id",
+        "operationId": "deleteCollection",
+        "parameters": [
+          {
+            "name": "idCollection",
+            "in": "path",
+            "description": "Collection id to delete",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Invalid user value"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "collection"
+        ],
+        "summary": "Edit collection",
+        "description": "Edit an existing collection by Id",
+        "operationId": "editCollection",
+        "parameters": [
+          {
+            "name": "idCollection",
+            "in": "path",
+            "description": "ID of the collection that needs to be edited",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Edit an existing collection",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Collection"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Collection"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Collection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/customer": {
+      "get": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "Find customer",
+        "operationId": "findCustomer",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "ID of customer to return",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "evaluation",
+            "in": "query",
+            "description": "evaluation of customer to return",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "Add a new customer",
+        "description": "Add a new customer",
+        "operationId": "addCustomer",
+        "requestBody": {
+          "description": "Add a new customer",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Customer"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Customer"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Customer"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/customer/{idCustomer}": {
+      "delete": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "Delete a customer by Id",
+        "description": "Delete a customer by Id",
+        "operationId": "deleteCustomerById",
+        "parameters": [
+          {
+            "name": "idCustomer",
+            "in": "path",
+            "description": "ID of customer to remove",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Invalid user value"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "Edit a customer by Id",
+        "description": "Edit a customer by Id",
+        "operationId": "editCustomerById",
+        "parameters": [
+          {
+            "name": "idCustomer",
+            "in": "path",
+            "description": "ID of customer to edit",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/editor": {
+      "get": {
+        "tags": [
+          "editor"
+        ],
+        "summary": "Find editor",
+        "operationId": "findEditor",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "ID of editor to return",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "nameEditor",
+            "in": "query",
+            "description": "Name of editor to return",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "editor"
+        ],
+        "summary": "Add a new editor to the system",
+        "description": "Add a new editor to the system",
+        "operationId": "addEditor",
+        "requestBody": {
+          "description": "Add a new editor to the system",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Editor"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Editor"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Editor"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/editor/{idEditor}": {
+      "delete": {
+        "tags": [
+          "editor"
+        ],
+        "summary": "Delete an editor by Id",
+        "description": "Delete an editor by Id",
+        "operationId": "deleteEditorById",
+        "parameters": [
+          {
+            "name": "idEditor",
+            "in": "path",
+            "description": "ID of editor to remove",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Invalid user value"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "editor"
+        ],
+        "summary": "Edit an editor by Id",
+        "description": "Edit an editor by Id",
+        "operationId": "editEditorById",
+        "parameters": [
+          {
+            "name": "idEditor",
+            "in": "path",
+            "description": "ID of editor to edit",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/feedback": {
+      "get": {
+        "tags": [
+          "feedback"
+        ],
+        "summary": "Find feedback",
+        "operationId": "findFeedback",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Feedback id to return",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "value",
+            "in": "query",
+            "description": "Feedback value to return",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "enum": [
+                5,
+                4,
+                3,
+                2,
+                1
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "feedback"
+        ],
+        "summary": "create a new feedback",
+        "description": "",
+        "operationId": "newFeedback",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/feedback/{idFeedback}": {
+      "delete": {
+        "tags": [
+          "feedback"
+        ],
+        "summary": "Deletes a feedback",
+        "description": "delete a feedback",
+        "operationId": "deleteFeedback",
+        "parameters": [
+          {
+            "name": "idFeedback",
+            "in": "path",
+            "description": "Feedback id to delete",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Invalid user value"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "feedback"
+        ],
+        "summary": "Edit feedback",
+        "description": "Edit an existing feedback by Id",
+        "operationId": "editFeedback",
+        "parameters": [
+          {
+            "name": "idFeedback",
+            "in": "path",
+            "description": "ID of feedback that needs to be edited",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Update an existing feedback",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Feedback"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Feedback"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Feedback"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/genre": {
+      "get": {
+        "tags": [
+          "genre"
+        ],
+        "summary": "Find genre",
+        "operationId": "findGenre",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Genre id to return",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Genre name to return",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "genre"
+        ],
+        "summary": "create a new genre",
+        "description": "create a new genre",
+        "operationId": "newGenre",
+        "parameters": [
+          {
+            "name": "idGenre",
+            "in": "query",
+            "description": "ID of genre that needs to be created",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/genre/{idGenre}": {
+      "delete": {
+        "tags": [
+          "genre"
+        ],
+        "summary": "Deletes a genre",
+        "description": "delete a genre",
+        "operationId": "deleteGenre",
+        "parameters": [
+          {
+            "name": "idGenre",
+            "in": "path",
+            "description": "Genre id to delete",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Invalid user value"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "genre"
+        ],
+        "summary": "Edit genre",
+        "description": "Edit an existing genre by Id",
+        "operationId": "editGenre",
+        "parameters": [
+          {
+            "name": "idGenre",
+            "in": "path",
+            "description": "ID of genre that needs to be edited",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Edit an existing genre",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Genre"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Genre"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Genre"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Find user",
+        "operationId": "findUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "User id to delete",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "username",
+            "in": "query",
+            "description": "User username to return",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "surname",
+            "in": "query",
+            "description": "User surname to return",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "description": "User email to return",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cf",
+            "in": "query",
+            "description": "User cf to return",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "telephone",
+            "in": "query",
+            "description": "User telephone to return",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "create a new user",
+        "description": "create a new user",
+        "operationId": "newUser",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/user/{idUser}": {
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Deletes a user",
+        "description": "delete a user",
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "idUser",
+            "in": "path",
+            "description": "User id to delete",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Invalid user value"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Edit user",
+        "description": "Edit an existing user by Id",
+        "operationId": "editUser",
+        "parameters": [
+          {
+            "name": "idUser",
+            "in": "path",
+            "description": "idUser of User to return",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "501": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Aisle": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "hgjhkgj3h251jhk"
+          },
+          "name": {
+            "type": "string",
+            "example": "A"
+          }
+        },
+        "xml": {
+          "name": "aisle"
+        }
+      },
+      "Author": {
+        "type": "object",
+        "properties": {
+          "idAuthor": {
+            "type": "string",
+            "format": "uuid",
+            "example": "asdfhj3456fg"
+          },
+          "name": {
+            "type": "string",
+            "example": "Mario"
+          },
+          "lastname": {
+            "type": "string",
+            "example": "Rossi"
+          }
+        },
+        "xml": {
+          "name": "author"
+        }
+      },
+      "Book": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "swdqop2934"
+          },
+          "isbn": {
+            "type": "string",
+            "example": "92847HD2304KD"
+          },
+          "name": {
+            "type": "string",
+            "example": "ExampleBook"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "description": {
+            "type": "string",
+            "example": "ExampleDescription"
+          },
+          "year": {
+            "type": "integer",
+            "format": "int64",
+            "example": 2012
+          },
+          "idCollection": {
+            "$ref": "#/components/schemas/Collection"
+          },
+          "page": {
+            "type": "integer",
+            "format": "int64",
+            "example": 100
+          },
+          "language": {
+            "type": "string",
+            "example": "Italian"
+          },
+          "idEditor": {
+            "$ref": "#/components/schemas/Editor"
+          },
+          "idAuthor": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": [
+              "asfhj2l45",
+              "gajkdgn20"
+            ]
+          },
+          "pegi": {
+            "type": "integer",
+            "format": "int64",
+            "example": 18
+          },
+          "price": {
+            "type": "number",
+            "format": "float",
+            "example": 18.99
+          },
+          "currentPrice": {
+            "type": "number",
+            "format": "float",
+            "example": 15.99
+          },
+          "idBookcase": {
+            "type": "string",
+            "format": "uuid",
+            "example": "weiji219874edw"
+          },
+          "idAisle": {
+            "type": "string",
+            "format": "uuid",
+            "example": "sdjfw238swdfk"
+          },
+          "idFeedback": {
+            "type": "string",
+            "format": "uuid",
+            "example": "ekopwp3o4e98jd"
+          },
+          "sell": {
+            "type": "boolean",
+            "example": true
+          },
+          "numBorrow": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          }
+        },
+        "xml": {
+          "name": "book"
+        }
+      },
+      "Bookcase": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "wid23090rdjksak"
+          },
+          "number": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "idAisle": {
+            "type": "string",
+            "format": "uuid",
+            "example": "wqe34883ek",
+            "xml": {
+              "name": "addresses"
+            }
+          }
+        }
+      },
+      "Borrow": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "uwryf78ht"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date",
+            "example": "26-09-2022"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date",
+            "example": "27-09-2022"
+          },
+          "stateBorrow": {
+            "type": "string",
+            "enum": [
+              "pendig",
+              "inProgress",
+              "finished"
+            ],
+            "example": "pending"
+          },
+          "startReservation": {
+            "type": "string",
+            "format": "date",
+            "example": "28-09-2022"
+          },
+          "endReservation": {
+            "type": "string",
+            "format": "date",
+            "example": "29-09-2022"
+          },
+          "idCustomer": {
+            "type": "string",
+            "format": "uuid",
+            "example": "ht46565d"
+          },
+          "idFeedback": {
+            "type": "string",
+            "format": "uuid",
+            "example": "65fufjuf"
+          }
+        },
+        "xml": {
+          "name": "borrow"
+        }
+      },
+      "Collection": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "64hr7r"
+          },
+          "name": {
+            "type": "string",
+            "example": "Harry Potter"
+          },
+          "startYear": {
+            "type": "string",
+            "format": "date",
+            "example": 2022
+          },
+          "endYear": {
+            "type": "string",
+            "format": "date",
+            "example": 2023
+          },
+          "numBooks": {
+            "type": "integer",
+            "example": 46
+          }
+        },
+        "xml": {
+          "name": "collection"
+        }
+      },
+      "Customer": {
+        "type": "object",
+        "properties": {
+          "balance": {
+            "type": "number",
+            "format": "float",
+            "example": 437
+          },
+          "bookLost": {
+            "type": "integer",
+            "example": 0
+          },
+          "bookDelay": {
+            "type": "integer",
+            "example": 1
+          },
+          "bookDamage": {
+            "type": "integer",
+            "example": 0
+          },
+          "evaluation": {
+            "type": "integer",
+            "example": 6
+          }
+        },
+        "xml": {
+          "name": "customer"
+        }
+      },
+      "Editor": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "hgjky3287"
+          },
+          "name": {
+            "type": "string",
+            "example": "Mondadori"
+          },
+          "city": {
+            "type": "string",
+            "example": "Lecce"
+          },
+          "address": {
+            "type": "string",
+            "example": "Via Vittorio Bachelet, 23"
+          },
+          "telephone": {
+            "type": "integer",
+            "example": 836326893
+          }
+        },
+        "xml": {
+          "name": "editor"
+        }
+      },
+      "Feedback": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "asfghjk86sdfgh"
+          },
+          "value": {
+            "type": "integer",
+            "enum": [
+              5,
+              4,
+              3,
+              2,
+              1
+            ],
+            "example": 3
+          },
+          "idBook": {
+            "type": "string",
+            "format": "uuid",
+            "example": "asjhvksjad5867bakjdbh"
+          },
+          "idBorrow": {
+            "type": "string",
+            "format": "uuid",
+            "example": "asfkjg98347kabjf"
+          }
+        },
+        "xml": {
+          "name": "feedback"
+        }
+      },
+      "Genre": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "asfghjk86sdfgh"
+          },
+          "name": {
+            "type": "string",
+            "example": "giallo"
+          }
+        },
+        "xml": {
+          "name": "genre"
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "kjlkar85769"
+          },
+          "email": {
+            "type": "string",
+            "example": "lucabianchi@gmail.com"
+          },
+          "username": {
+            "type": "string",
+            "example": "lucabianchi"
+          },
+          "password": {
+            "type": "string",
+            "example": "asdowaf923"
+          },
+          "cf": {
+            "type": "string",
+            "example": "LGBCHI97S12D782Z"
+          },
+          "name": {
+            "type": "string",
+            "example": "Luigi"
+          },
+          "surname": {
+            "type": "string",
+            "example": "Bianchi"
+          },
+          "birthdate": {
+            "type": "string",
+            "format": "date",
+            "example": "12/04/1997"
+          },
+          "sex": {
+            "type": "string",
+            "example": "M"
+          },
+          "city": {
+            "type": "string",
+            "example": "Lecce"
+          },
+          "address": {
+            "type": "string",
+            "example": "Via Trinchese, 12"
+          },
+          "telephone": {
+            "type": "integer",
+            "example": 3334564989
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "admin",
+              "employee",
+              "customer"
+            ],
+            "example": "customer"
+          }
+        },
+        "xml": {
+          "name": "user"
+        }
+      }
+    },
+    "requestBodies": {
+      "UserArray": {
+        "description": "List of user object",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "petstore_auth": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "https://petstore3.swagger.io/oauth/authorize",
+            "scopes": {
+              "write:pets": "modify pets in your account",
+              "read:pets": "read your pets"
+            }
+          }
+        }
+      },
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+      }
+    }
+  }
+}
